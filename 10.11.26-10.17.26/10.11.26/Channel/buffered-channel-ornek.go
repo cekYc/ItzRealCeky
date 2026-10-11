@@ -14,6 +14,7 @@ func main() {
 	oge <- "1. veri"
 	oge <- "2. veri"
 	oge <- "3. veri"
+	close(oge) // kanalın kapatılması, alıcıya veri akışının sona erdiğini bildirir
 
 	fmt.Println("Buffered channel'a 3 veri gönderildi (Kanal doldu).")
 
@@ -27,9 +28,7 @@ func main() {
 	time.Sleep(500 * time.Millisecond)
 
 	// buffered channel'dan veri alıyoruz
-	x := len(oge) // kanalın doluluk durumunu alıyoruz
-	for i := 1; i <= x; i++ {
-		mesaj := <-oge
+	for mesaj := range oge {
 		fmt.Printf("Alinan mesaj: %s\n", mesaj)
 	}
 
